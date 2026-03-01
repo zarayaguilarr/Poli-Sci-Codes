@@ -1,0 +1,28 @@
+---
+title: "Table 2: Graduation Rate Distribution"
+output: html_document
+---
+
+```{r, echo=FALSE, results='asis'}
+library(kableExtra)
+
+data <- data.frame(
+  Demographic_Group = c("Asian/Pacific Share", "Black Share", "Hispanic Share", "Non-resident Alien Share"),
+  Min = c(0.00000, 0.00000, 0.00000, 0.00000),
+  `1st_Qu.` = c(0.34485, 0.34485, 0.34485, 0.34485),
+  Median = c(0.50000, 0.50000, 0.50000, 0.50000),
+  Mean = c(0.50085, 0.50085, 0.50085, 0.50085),
+  `3rd_Qu.` = c(0.64910, 0.64910, 0.64910, 0.64910),
+  Max = c(1.00000, 1.00000, 1.00000, 1.00000),
+  NA_s = c(1617, 1617, 1617, 1617),
+  Grad_Rate = c(0.525, 0.502, 0.488, 0.505)
+)
+
+kable(data, "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  column_spec(2:9, width = "100px") %>%
+  add_header_above(c(" ", "Descriptive Statistics" = 6, "Graduation Rate" = 2)) %>%
+  add_footnote(c("Note: NA_s represents the number of missing values."))
+
+
+#used notes from poli 30 to create rmarkdown that would create table 2 

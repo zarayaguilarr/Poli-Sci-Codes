@@ -1,0 +1,26 @@
+---
+title: "Table 1: Minority Students at Universities"
+output: html_document
+---
+
+```{r, echo=FALSE, results='asis'}
+library(kableExtra)
+
+data <- data.frame(
+  Demographic_Group = c("Asian/Pacific Share", "Black Share", "Hispanic Share", "Non-resident Alien Share"),
+  Min = c(0.00000, 0.00000, 0.00000, 0.00000),
+  `1st_Qu.` = c(0.00671, 0.02796, 0.01165, 0.00131),
+  Median = c(0.01497, 0.06364, 0.02673, 0.00987),
+  Mean = c(0.03390, 0.13037, 0.07425, 0.02039),
+  `3rd_Qu.` = c(0.03518, 0.15214, 0.07482, 0.02673),
+  Max = c(0.79159, 1.00000, 0.96418, 0.41468),
+  NA_s = c(50, 50, 50, 50)
+)
+
+kable(data, "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE) %>%
+  column_spec(2:8, width = "100px") %>%
+  add_header_above(c(" ", "Descriptive Statistics" = 6, " ")) %>%
+  add_footnote(c("Note: NA_s represents the number of missing values."))
+
+#used notes from poli 30 to create rmarkdown that would create table 1 
