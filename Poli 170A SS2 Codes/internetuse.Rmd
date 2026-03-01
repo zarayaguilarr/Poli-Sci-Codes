@@ -1,0 +1,56 @@
+---
+title: "Internet Use"
+author: "Zaray"
+date: "2023-09-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(broom)
+library(knitr)
+```
+
+## R Markdown
+
+# Load the necessary libraries
+library(broom)
+library(knitr)
+
+# Create a data frame with the Internet Use data
+data <- data.frame(
+  "Internet Use" = c(
+    "Individuals using the Internet (% of population)",
+    "Individuals using the Internet (% of population)",
+    "Individuals using the Internet (% of population)"
+  ),
+  "Country Name" = c("Mexico", "Canada", "United States"),
+  "Country Code" = c("MEX", "CAN", "USA"),
+  "2010" = c(31.05, 80.30, 71.69),
+  "2011" = c(37.17630, 83.00000, 69.72946),
+  "2012" = c(39.75, 83.00, 74.70),
+  "2013" = c(43.46, 85.80, 71.40),
+  "2014" = c(44.39, 87.12, 73.00),
+  "2015" = c(57.43104, 90.00000, 74.55420),
+  "2016" = c(59.54045, 91.16000, 85.54442),
+  "2017" = c(53.03179, 92.70137, 87.27489),
+  "2018" = c(56.65957, 94.64000, 88.49890),
+  "2019" = c(69.63211, 91.91290, 89.43028),
+  "2020" = c(71.49017, 92.30000, 90.62047),
+  "2021" = c(75.62650, 92.83402, 91.75321)
+)
+
+# Perform bivariate regression for each country and tidy the results
+tidy_results <- by(data, data$`Country Code`, function(df) {
+  model <- lm(`X2021` ~ `X2010`, data = df)
+  tidy(model)
+})
+
+# Combine the tidied results into a single data frame
+tidy_results_df <- do.call(rbind, tidy_results)
+
+# Rename the columns for clarity
+colnames(tidy_results_df) <- c("Country", "Intercept", "Slope")
+
+# Create a markdown table
+kable(tidy_results_df, format = "markdown")
